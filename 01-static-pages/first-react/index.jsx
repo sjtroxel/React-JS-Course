@@ -1,30 +1,31 @@
-// import { createRoot } from "react-dom/client"
-// const root = createRoot(document.getElementById("root"))
+/*
+Challenge: Starting from scratch, build and render the 
+HTML for our section project. Check the Google slide for 
+what you're trying to build.
 
-// root.render(
-//     <h1>Hello, React!</h1>
-// )
+We'll be adding more styling to it later.
 
+Hints:
+* The React logo is a file in the project tree, so you can
+  access it by using `src="react-logo.png"` in your image
+  element
+* You can also set the `width` attribute of the image element
+  just like in HTML. In the slide, I have it set to 40px
+ */
 
-/* 
-Challenge - recreate the above line of code in vanilla JS by creating and
-appending an h1 to our div#root (without using innerHTML).
+import { createRoot } from "react-dom/client"
+const root = createRoot(document.getElementById("root"))
 
-- Create a new h1 element (createElement)
-- Give it some textContent
-- Give it a class name of "header"
-- append it as a child (using `appendChild`) of the div#root
-
-Don't use innerHTML to accomplish any of this.
-    
-*/
-
-const h1 = document.createElement("h1")
-const p1 = document.createElement("p")
-h1.textContent = "Hello, React! I'm doing my best!"
-p1.textContent = "Trying to really drive home my understanding of this..."
-h1.className = "header"
-p1.className = "paragraph"
-const root = document.getElementById("root")
-root.appendChild(h1)
-root.appendChild(p1)
+root.render (
+    <main>
+    <img src="react-logo.png" width="40px" alt="React logo"/>
+    <h1>Fun facts about React!</h1>
+    <ul>
+        <li>Was first released in 2013!</li>
+        <li>Was originally created by Jordan Walke!</li>
+        <li>Has well over 200k stars on GitHub!</li>
+        <li>Is maintained by Meta!</li>
+        <li>Powers thousands of enterprise apps, including mobile apps!</li>
+    </ul>
+    </main>
+) 
