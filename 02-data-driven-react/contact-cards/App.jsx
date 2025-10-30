@@ -1,107 +1,43 @@
 import Contact from "./components/Contact"
 
 /**
- * Challenge:
- * - Create a Contact component in another file
- * - Move one of the contact card articles below into that file
- * - import and render 4 instances of that contact card
- *     - Think ahead: what's the problem with doing it this way?
+ * Challenge (I'm sorry!): Add all the rest of the 
+ * data to the contact card instances. 🐲
  */
 
 function App() {
     return (
         <div className="contacts">
-            <Contact />
-            <Contact />
-            <Contact />
-            <Contact />
-            {/* <article className="contact-card">
-                <img 
-                    src="./images/mr-whiskerson.png"
-                    alt="Photo of Mr. Whiskerson"
+            <Contact 
+                img="./images/mr-whiskerson.png" 
+                name="Mr. Whiskerson"
+                phone="(212) 555-1234"
+                email="mr.whiskaz@catnap.meow"
                 />
-                <h3>Mr. Whiskerson</h3>
-                <div className="info-group">
-                    <img 
-                        src="./images/phone-icon.png" 
-                        alt="phone icon" 
-                    />
-                    <p>(212) 555-1234</p>
-                </div>
-                <div className="info-group">
-                    <img 
-                        src="./images/mail-icon.png" 
-                        alt="mail icon"
-                    />
-                    <p>mr.whiskaz@catnap.meow</p>
-                </div>
-            </article>
-            
-            <article className="contact-card">
-                <img 
-                    src="./images/fluffykins.png"
-                    alt="Photo of Fluffykins"
+            <Contact 
+                img="./images/fluffykins.png" 
+                name="Fluffykins"
+                phone="(212) 555-2345"
+                email="fluff@me.com"
                 />
-                <h3>Fluffykins</h3>
-                <div className="info-group">
-                    <img 
-                        src="./images/phone-icon.png" 
-                        alt="phone icon" 
-                    />
-                    <p>(212) 555-2345</p>
-                </div>
-                <div className="info-group">
-                    <img 
-                        src="./images/mail-icon.png" 
-                        alt="mail icon"
-                    />
-                    <p>fluff@me.com</p>
-                </div>
-            </article>
-            
-            <article className="contact-card">
-                <img 
-                    src="./images/felix.png"
-                    alt="Photo of Felix"
+            <Contact 
+                img="./images/felix.png" 
+                name="Felix"
+                phone="(212) 555-4567"
+                email="thecat@hotmail.com"
                 />
-                <h3>Felix</h3>
-                <div className="info-group">
-                    <img 
-                        src="./images/phone-icon.png" 
-                        alt="phone icon" 
-                    />
-                    <p>(212) 555-4567</p>
-                </div>
-                <div className="info-group">
-                    <img 
-                        src="./images/mail-icon.png" 
-                        alt="mail icon"
-                    />
-                    <p>thecat@hotmail.com</p>
-                </div>
-            </article>
-            
-            <article className="contact-card">
-                <img 
-                    src="./images/pumpkin.png"
-                    alt="Photo of Pumpkin"
+            <Contact 
+                img="./images/pumpkin.png" 
+                name="Pumpkin"
+                phone="(0800) CAT KING"
+                email="pumpkin@scrimba.com"
                 />
-                <h3>Pumpkin</h3>
-                <div className="info-group">
-                    <img 
-                        src="./images/phone-icon.png" 
-                        alt="phone icon" 
-                    />
-                    <p>(0800) CAT KING</p>
-                </div>
-                <div className="info-group">
-                    <img 
-                        src="./images/mail-icon.png" 
-                        alt="mail icon"
-                    />
-                    <p>pumpkin@scrimba.com</p>
-                </div>
-            </article> */}
+            <Contact 
+                img="./images/strawberry.png" 
+                name="Strawberry"
+                phone="(573) GOOD-CAT"
+                email="strawberry@goodgirl.cat"
+                />
         </div>
     )
 }
