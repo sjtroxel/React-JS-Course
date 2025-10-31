@@ -1,4 +1,5 @@
 import Contact from "./components/Contact"
+import Strawberry from "./images/strawberry.png"
 
 /**
  * Challenge (I'm sorry!): Add all the rest of the 
@@ -33,7 +34,7 @@ function App() {
                 email="pumpkin@scrimba.com"
                 />
             <Contact 
-                img="./images/strawberry.png" 
+                img={Strawberry}
                 name="Strawberry"
                 phone="(573) GOOD-CAT"
                 email="strawberry@goodgirl.cat"

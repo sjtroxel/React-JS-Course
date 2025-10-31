@@ -1,4 +1,6 @@
 export default function Joke(props) {
+    // console.log(!props.isPun)
+    // console.log(props.comments)
     console.log(props)
     return (
         <>
