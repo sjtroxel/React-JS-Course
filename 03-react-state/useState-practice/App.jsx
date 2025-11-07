@@ -1,47 +1,76 @@
-// import { useState } from "react"
 import React from "react"
 
 export default function App() {
 
     /**
-     * Challenge: replace our hard-coded "Yes" on the page with
-     * some state initiated with React.useState().
+     * Challenge: 
+     * Create state to track our count value (initial value is 0)
+     * Don't forget to replace the hard-coded "0" with your new state
      */
-
-    let [isImportant, setIsImportant] = React.useState("yes")
-    // setIsImportant("Heck yes!")
-    
 
     /**
      * Challenge: 
-     * 1. Create a function called 'handleClick' that runs 
-     *    setIsImportant("Definitely!")
-     * 2. Add a click event listener to the button that runs
-     *    'handleClick' when the button is clicked.
+     * Create a function called 'add' that runs when the + button is
+     * clicked. (Can just console.log("add") for now!)
      */
-    
 
-    function handleClick() {
-        // setIsImportant("Definitely!")
-        setIsImportant("heck yes!")
-    }
-    
-    // const yes = React.useState("heck yes")
-    // console.log(isImportant)
-    // console.log(yes)
-    
-    
-    // let state = "Yes"
+    /**
+     * Challenge: See if you can think of a way to add +1 to the 
+     * count every time the + button is clicked.
+     */
 
-    // function handleClick() {
-    //     state = "heck, yes!"
+    /**
+     * Challenge: Add functionality to the minus (-) button!
+     */
+
+
+    const [count, setCount] = React.useState(0)
+
+    // function add() {
+    //     console.log("Add")
+    //     setCount(count + 1)
     // }
 
+    function add() {
+        setCount(function (prevCount) {
+            return prevCount + 1
+        })
+        setCount(function (prevCount) {
+            return prevCount + 1
+        })
+        setCount(function (prevCount) {
+            return prevCount + 1
+        })
+    }
+
+    // function subtract() {
+    //     console.log("Subtract")
+    //     setCount(count - 1)
+    // }
+
+    function subtract() {
+        setCount(prevCount => prevCount - 1)
+        setCount(prevCount => prevCount - 1)
+        setCount(prevCount => prevCount - 1)
+    }
+
+    /**   ^^   ^^
+     * Note: If you ever need the old value of state to help you
+     * determine the new value of state, you should pass a callback
+     * function to your state-setter function instead of using state
+     * directly. This callback function will receive the old value 
+     * of state as its parameter which you can then use to determine
+     * your new value of state.
+     */
+
     return (
-        <main>
-            <h1 className="title">Is state important to know??</h1>
-            {/* <button onClick={handleClick} className="value">{state}</button> */}
-            <button className="value" onClick={handleClick}>{isImportant}</button>
+        <main className="container">
+            <h1>How many times will Bob say "state" in this section?</h1>
+            <div className="counter">
+                <button className="minus" aria-label="Decrease count" onClick={subtract}>–</button>
+                <h2 className="count">{count}</h2>
+                <button className="plus" aria-label="Increase count" onClick={add}>+</button>
+            </div>
         </main>
     )
 }
