@@ -1,4 +1,5 @@
 import React from "react"
+import Count from "./Count"
 
 export default function App() {
 
@@ -23,7 +24,6 @@ export default function App() {
      * Challenge: Add functionality to the minus (-) button!
      */
 
-
     const [count, setCount] = React.useState(0)
 
     // function add() {
@@ -35,12 +35,12 @@ export default function App() {
         setCount(function (prevCount) {
             return prevCount + 1
         })
-        setCount(function (prevCount) {
-            return prevCount + 1
-        })
-        setCount(function (prevCount) {
-            return prevCount + 1
-        })
+        // setCount(function (prevCount) {
+        //     return prevCount + 1
+        // })
+        // setCount(function (prevCount) {
+        //     return prevCount + 1
+        // })
     }
 
     // function subtract() {
@@ -50,8 +50,8 @@ export default function App() {
 
     function subtract() {
         setCount(prevCount => prevCount - 1)
-        setCount(prevCount => prevCount - 1)
-        setCount(prevCount => prevCount - 1)
+        // setCount(prevCount => prevCount - 1)
+        // setCount(prevCount => prevCount - 1)
     }
 
     /**   ^^   ^^
@@ -63,12 +63,28 @@ export default function App() {
      * your new value of state.
      */
 
+     /**
+     * Challenge:
+     * - Create a new component called `Count`
+     *    - It should receive a prop called `number`, whose value
+     *      is the current value of our count
+     *    - Have the component render the h2.count element below
+     *      and display the incoming prop `number`
+     * - Replace the h2.count below with an instance of
+     *   the new Count component, passing the correct value
+     *   to its `number` prop.
+     * - After doing this, everything should be working the
+     *   same as before.
+     */
+
+    console.log("App rendered!")
+
     return (
         <main className="container">
-            <h1>How many times will Bob say "state" in this section?</h1>
+            {/* <h1>How many times will Bob say "state" in this section?</h1> */}
             <div className="counter">
                 <button className="minus" aria-label="Decrease count" onClick={subtract}>–</button>
-                <h2 className="count">{count}</h2>
+                <Count number={count} />
                 <button className="plus" aria-label="Increase count" onClick={add}>+</button>
             </div>
         </main>
