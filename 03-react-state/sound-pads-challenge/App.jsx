@@ -12,8 +12,29 @@ export default function App() {
      * the function runs!!
      */
 
+    // function toggle(id) {
+        // map over the pads array, and if the current item has the
+        // same id as the one passed to this function, then flip its
+        // `on` value.
+        // console.log("Clicked!!", id)
+    //     console.log("Toggle function!", id)
+    // }
+
+    /**
+    * Challenge:
+    * Call setPads to update the state of the one pad that was
+    * clicked. Map over the previous pads array, and if the current
+    * item you're iterating over has the same id as the `id` passed
+    * to this function, then return a new object with the `on` value
+    * set to the opposite of what it was before.
+    * Otherwise (if the ids don't match), just return the previous
+    * item as it was, unchanged.     
+    */
+
     function toggle(id) {
-        console.log("Clicked!!", id)
+        setPads(prevPads => prevPads.map(item => {
+            return item.id === id ? {...item, on: !item.on} : item
+        }))
     }
 
     const buttonElements = pads.map(pad => (
@@ -21,7 +42,7 @@ export default function App() {
         toggle={toggle} />
     ))
 
-    console.log(setPads)
+
     
     return (
         <main>

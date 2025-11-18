@@ -17,26 +17,28 @@ export default function Pad(props) {
      * Goal: clicking each box should toggle it on and off.
      */
 
+    // console.log(props.id)
 
-    const [on, setOn] = React.useState(props.on)
+    // const [on, setOn] = React.useState(props.on)
 
-    const className = on ? "on" : undefined
+    const className = props.on ? "on" : undefined
     
-    function toggle() {
-        setOn(prevOn => !prevOn)
-    }
-    console.log(setOn)
+    // function toggle() {
+    //     setOn(prevOn => !prevOn)
+    // }
+    // console.log(setOn)
 
-    function handleClick() {
-        props.toggle(props.id)
-        toggle()
-    }
+    // function handleClick() {
+    //     props.toggle(props.id)
+    //     toggle()
+    // }
 
     return (
         <button 
             className = {className}
             style = {{backgroundColor: props.color}}
-            onClick = {handleClick}
+            // onClick = {props.toggle()}
+            onClick = {() => props.toggle(props.id)}
         >
             {props.id}
         </button>
