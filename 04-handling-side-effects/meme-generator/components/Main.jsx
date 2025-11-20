@@ -1,19 +1,24 @@
 import {useState} from "react"
 
 export default function Main() {
-    /**
-     * Challenge: move the hard-coded meme info into React state. Use
-     * an object with `topText`, `bottomText`, and `imageUrl` properties
-     * and set the initial values to the ones hardcoded below.
-     */
-
+   
     const [meme, setMeme] = useState({
-        topText: "One does not simply",
+        topText: "Something different",
         bottomText: "Walk into Mordor",
         imageUrl: "http://i.imgflip.com/1bij.jpg"
     })
 
-    console.log(setMeme)
+    function handleChange(event) {
+        const {name, value} = event.currentTarget
+        setMeme(prevMeme => ({
+            ...prevMeme, [name]: value
+        }))
+    }
+
+    /**
+     * Challenge: update the topText value in the meme state
+     * object every time the topText input box is changed!!
+     */
 
     return (
         <main>
@@ -23,6 +28,8 @@ export default function Main() {
                         type="text"
                         placeholder="One does not simply"
                         name="topText"
+                        onChange={handleChange}
+                        value={meme.topText}
                     />
                 </label>
 
@@ -31,6 +38,8 @@ export default function Main() {
                         type="text"
                         placeholder="Walk into Mordor"
                         name="bottomText"
+                        onChange={handleChange}
+                        value={meme.bottomText}
                     />
                 </label>
                 <button>Get a new meme image 🖼</button>
