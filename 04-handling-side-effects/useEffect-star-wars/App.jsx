@@ -1,23 +1,32 @@
 import React from "react"
 
 export default function App() {
-    const [starWarsData, setStarWarsData] = React.useState(null)
+    const [starWarsData, setStarWarsData] = React.useState({})
+    const [count, setCount] = React.useState(0)
+    
+    console.log("Rendered!")
 
-    // console.log("Rendered!")
-    console.log(setStarWarsData)
+    React.useEffect(function() {
+        console.log("Effect ran!")
+        fetch("https://swapi.dev/api/people/1")
+            .then(res => res.json())
+            .then(data => setStarWarsData(data))
+    }, [count])
+    
     /**
-     * Challenge:
-     * Instead of console.logging the data, save it in state and
-     * display it to the page. (Just replace the hard-coded object
-     * inside the `<pre>` element with the data.)
+     * Challenge: Re-write the useEffect!
+     * It should run any time `count` changes!
+     * For now, just console.log("Effect function ran!")
      */
 
-    // fetch("https://swapi.dev/api/people/1")
-    //     .then(res => res.json())
-    //     .then(data => setStarWarsData(data))
+    React.useEffect(() => {
+        console.log("Effect function ran!")
+    }, [count])
 
     return (
         <div>
+            <h2>The count is {count}</h2>
+            <button onClick={() => setCount(prevCount => prevCount + 1)}>Add</button>
             <pre>{JSON.stringify(starWarsData, null, 2)}</pre>
         </div>
     )
