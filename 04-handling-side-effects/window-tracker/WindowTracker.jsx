@@ -4,19 +4,17 @@ export default function WindowTracker() {
 
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth)
 
-    /**
-     * Challenge:
-     * 1.   Create state called `windowWidth`, default to
-     *      `window.innerWidth`.
-     * 2.   When the window width changes, update the state.
-     * 3.   Display the window width in the h1 so it updates 
-     *      every time it changes.
-     */
 
     React.useEffect(() => {
-        window.addEventListener("resize", function watchWidth() {
+        function watchWindowWidth () {
+            console.log("Resized!")
             setWindowWidth(window.innerWidth)
-        })
+        }
+        window.addEventListener("resize", watchWindowWidth)
+        return function() {
+            console.log("Cleaning up!")
+            window.removeEventListener("resize", watchWindowWidth)
+        }
     }, [])
 
     return (

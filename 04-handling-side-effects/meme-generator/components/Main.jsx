@@ -9,31 +9,32 @@ export default function Main() {
 
     const [allMemes, setAllMemes] = React.useState([])
     
-    console.log(allMemes)
-
-    /**
-     * Challenge:
-     * Get an array of memes from the imgflip API as soon as
-     * this component renders for the first time.
-     * Check the imgflip documentation for the correct URL.
-     * Save the array of memes (not the whole response
-     * data) to state. (For this app, we'll randomly choose
-     * one of the memes from this array when the user clicks
-     * the "Get a new meme image" button, but we'll do that in
-     * a separate challenge.)
-     * 
-     * Hint: for now, don't try to use an async/await function.
-     * Instead, use `.then()` to resolve the promises
-     * from using `fetch`. We'll learn why after this challenge.
-     */
-    
     React.useEffect(() => {
         fetch(`https://api.imgflip.com/get_memes`)
             .then(res => res.json())
-            // .then(data => console.log(data.data.memes))
             .then(data => setAllMemes(data.data.memes))
     }, [])
     
+    /**
+     * Challenge: Get a random image from the array of
+     * allMemes when the user clicks the button. Once
+     * you've gotten a random image from the array, make
+     * sure to write the code that will display that
+     * random meme image to the page.
+     */
+
+    function getMemeImage() {
+        // get a random number from 0 to array.length
+        const randomNumber = Math.floor(Math.random() * allMemes.length)
+        // use the random number to get a random meme obj from the array
+        const newMemeurl = allMemes[randomNumber].url
+        // set state
+        setMeme (prevMeme => ({
+            ...prevMeme,
+            imageUrl: newMemeurl
+        }))
+    }
+
     function handleChange(event) {
         const {value, name} = event.currentTarget
         setMeme(prevMeme => ({
@@ -64,7 +65,7 @@ export default function Main() {
                         value={meme.bottomText}
                     />
                 </label>
-                <button>Get a new meme image 🖼</button>
+                <button onClick={getMemeImage}>Get a new meme image 🖼</button>
             </div>
             <div className="meme">
                 <img src={meme.imageUrl} />
