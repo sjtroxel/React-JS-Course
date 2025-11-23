@@ -11,6 +11,27 @@ export default function Main() {
     const recipeSection = React.useRef(null)
     console.log(recipeSection)
     
+     /**
+     * Problem:
+     * We want to scroll the "Ready for a recipe?" div into view
+     * ONLY AFTER the ClaudeRecipe section is rendered to the page 
+     * (i.e. when `recipe` is not an empty string). How can we do that?
+     */
+
+     /**
+      * Challenge:
+      * Add a new effect that calls `recipeSection.current.scrollIntoView()`
+      * only if recipe is not an empty string and recipeSection.current is 
+      * not null. Think carefully about what values you would want to include
+      * in the dependencies array.
+      */
+
+    React.useEffect(() => {
+        if (recipe !== "" && recipeSection.current !== null) {
+            recipeSection.current.scrollIntoView({ behavior: "smooth" })
+        }
+    }, [recipe])
+
     async function getRecipe() {
         const recipeMarkdown = await getRecipeFromChefClaude(ingredients)
         setRecipe(recipeMarkdown)
