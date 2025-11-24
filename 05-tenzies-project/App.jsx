@@ -1,78 +1,70 @@
 import React from 'react'
 import Die from './Die'
-
-/**
- * Challenge:
- * Write a function (generateAllNewDice) that returns an array 
- * of 10 random numbers between 1-6 inclusive.
- * Log the array of numbers to the console for now.
- */
-
-/**
- * Challenge:
- * 
- * Create state to hold our array of numbers. (Initialize
- * the state by calling our `generateAllNewDice` function so it 
- * loads all new dice as soon as the app loads)
- * 
- * Map over the state numbers array to generate our array
- * of Die components and render those in place of our
- * manually-written 10 Die elements.
- */
-
- /**
-  * Challenge: Create a `Roll Dice` button that will re-roll
-  * all 10 dice.
-  * 
-  * Clicking the button should generate a new array of numbers
-  * and set the `dice` state to that new array (thus re-rendering
-  * the array to the page).
-  */
+import {nanoid} from "nanoid"
 
 export default function App() {
-    // function generateAllNewDice() {
-    //     // create a new array (empty)
-    //     const newDice = []
-    //     // loop 10 times
-    //     for (let i = 0; i < 10; i++) {
-    //         // generate a random number between 1-6
-    //         const rand = Math.ceil(Math.random() * 6)
-    //         // push that number to the array
-    //         newDice.push(rand)
-    //     }
-    //     return newDice
-    // }
-    // console.log(generateAllNewDice())
+    /**
+     * Challenge: Update the array of numbers in state to be
+     * an array of objects instead. Each object should look like:
+     * { value: <random number>, isHeld: false }
+     * 
+     * Making this change will break parts of our code, so make
+     * sure to update things so we're back to a working state
+     */
+
+    /**
+     * Challenge: Add conditional styling to the Die component
+     * so that if it's held (isHeld === true), its background color
+     * changes to a light green (#59E391)
+     * 
+     * Remember: currently the Die component has no way of knowing
+     * if it's "held" or not.
+     */
+
+    /**
+     * Challenge: Create a function `hold` that takes
+     * `id` as a parameter. For now, just have the function
+     * console.log(id).
+     * 
+     * Then, figure out how to pass that function down to each
+     * instance of the Die component so when each one is clicked,
+     * it logs its own unique ID property. (Hint: there's more
+     * than one way to make that work, so just choose whichever
+     * you want)
+     */
+    
 
     function generateAllNewDice() {
         return new Array(10)
             .fill(0)
-            .map(() => Math.ceil(Math.random() * 6))
-    }
+            .map(() => ({
+                value: Math.ceil(Math.random() * 6),
+                isHeld: true,
+                id: nanoid()
+    }))}
 
     const [dice, setDice] = React.useState(generateAllNewDice())
 
-    const diceElements = dice.map((num, index) => (
-        <Die key={index} value={num} />
+    const diceElements = dice.map(dieObj => (
+        <Die 
+            key={dieObj.id} 
+            value={dieObj.value} 
+            isHeld={dieObj.isHeld}
+            id={dieObj.id}
+            hold={hold} />
     ))
 
     function rollDice() {
         setDice(generateAllNewDice())
     }
 
+    function hold(id) {
+        console.log(id)
+    }
+
      return (
         <main>
             <div className="dice-container">
-                {/* <Die value={1} />
-                <Die value={2} />
-                <Die value={3} />
-                <Die value={4} />
-                <Die value={5} />
-                <Die value={6} />
-                <Die value={2} />
-                <Die value={4} />
-                <Die value={1} />
-                <Die value={3} /> */}
                 {diceElements}
             </div>
 
