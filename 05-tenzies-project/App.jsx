@@ -3,67 +3,72 @@ import Die from './Die'
 import {nanoid} from "nanoid"
 
 export default function App() {
-    /**
-     * Challenge: Update the array of numbers in state to be
-     * an array of objects instead. Each object should look like:
-     * { value: <random number>, isHeld: false }
-     * 
-     * Making this change will break parts of our code, so make
-     * sure to update things so we're back to a working state
-     */
+    const [dice, setDice] = React.useState(generateAllNewDice())
 
-    /**
-     * Challenge: Add conditional styling to the Die component
-     * so that if it's held (isHeld === true), its background color
-     * changes to a light green (#59E391)
-     * 
-     * Remember: currently the Die component has no way of knowing
-     * if it's "held" or not.
-     */
-
-    /**
-     * Challenge: Create a function `hold` that takes
-     * `id` as a parameter. For now, just have the function
-     * console.log(id).
-     * 
-     * Then, figure out how to pass that function down to each
-     * instance of the Die component so when each one is clicked,
-     * it logs its own unique ID property. (Hint: there's more
-     * than one way to make that work, so just choose whichever
-     * you want)
-     */
-    
+        // check if the game is won
 
     function generateAllNewDice() {
         return new Array(10)
             .fill(0)
             .map(() => ({
                 value: Math.ceil(Math.random() * 6),
-                isHeld: true,
+                isHeld: false,
                 id: nanoid()
     }))}
-
-    const [dice, setDice] = React.useState(generateAllNewDice())
 
     const diceElements = dice.map(dieObj => (
         <Die 
             key={dieObj.id} 
             value={dieObj.value} 
             isHeld={dieObj.isHeld}
-            id={dieObj.id}
-            hold={hold} />
+            hold={() => hold(dieObj.id)} />
     ))
 
     function rollDice() {
-        setDice(generateAllNewDice())
+        setDice(oldDice => oldDice.map(die => {
+            return die.isHeld
+            ? die                                              // leave held dice alone
+            : { ...die, value: Math.ceil(Math.random() * 6) }  // reroll unheld dice
+        }))
     }
 
+    /**
+     * Challenge: Update the `hold` function to flip
+     * the `isHeld` property on the object in the array
+     * that was clicked, based on the `id` prop passed
+     * into the function.
+     * 
+     * Hint: as usual, there's more than one way to 
+     * accomplish this.
+     */  
+    
+    /**
+     * Challenge: Update the `rollDice` function to not just roll
+     * all new dice, but instead to look through the existing dice
+     * to NOT roll any that are being `held`.
+     * 
+     * Hint: this will look relatively similiar to the `hold`
+     * function below. When we're "rolling" a die, we're really
+     * just updating the `value` property of the die object.
+     */
+
     function hold(id) {
-        console.log(id)
+        setDice(oldDice => oldDice.map(die => {
+            return die.id === id ? {...die, isHeld: !die.isHeld } : die
+        }))
     }
+
+    // function hold(id) {
+    // setDice(oldDice => {
+    //     return oldDice.map(die => {
+    //      return die.id === id ? {...die, isHeld: !die.isHeld } : die
+    //     })
+    // })}
 
      return (
         <main>
+            <h1 className="title">Tenzies</h1>
+            <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
             <div className="dice-container">
                 {diceElements}
             </div>
@@ -73,3 +78,32 @@ export default function App() {
         </main>
     )
 }
+
+    /**
+     * Critical thinking time!
+     * 
+     * We want to indicate to the user that the game is over
+     * if (1) all the dice are held, and (2) all the dice have
+     * the same value.
+     * 
+     * How might we do this? Some questions to consider:
+     * 
+     * 1. Do we need to save a `gameWon` value in state? If so, why?
+     *    If not, why not?
+     * 
+     *      No, we do not. 
+     * 
+     * 2. Do we need to create a side effect to synchronize the `gameWon`
+     *    value (whether it's in state or not) with the current state of 
+     *    the dice?
+     * 
+     *      If we answered yes to (1) then yes, a side effect would 
+     *      be needed. But without a gameWon value in state, no side
+     *      effect is needed.
+     * 
+     * Conclusion:
+     * 
+     *      We can derive the gameWon status based on the condition(s)
+     *      of the current dice state on every render.
+     * 
+     */
