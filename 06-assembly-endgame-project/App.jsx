@@ -6,18 +6,24 @@ import { languages } from "./languages"
 /**
  * Goal: Add in the incorrect guesses mechanism to the game
  * 
- * Challenge: Derive a variable (`wrongGuessCount`) for the 
- * number of incorrect guesses by using the other state 
- * values we're already holding in the component.
- *      - console.log the wrongGuessCount for now
+ * Challenge:
+ * 1. Create a variable `isGameOver` which evaluates to `true`
+ *    if the user has guessed incorrectly 8 times. Consider how
+ *    we might make this more dynamic if we were ever to add or
+ *    remove languages from the languages array.
+ * 2. Conditionally render the New Game button only if the game
+ *    is over.
  * 
- * Challenge: When mapping over the languages, determine how
- * many of them have been "lost" and add the "lost" class if
- * so.
+ * Challenge:
+ * Conditionally render either the "won" or "lost" statuses
+ * from the design, both the text and the styles, based on the
+ * new derived variables.
  * 
- * Hint: use the wrongGuessCount combined with the index of
- * the item in the array while inside the languages.map code.
+ * Note: We always want the surrounding `section` to be rendered,
+ * so only change the content inside that section. Otherwise the
+ * content on the page would jump around a bit too much.
  */
+ 
 
 
 export default function AssemblyEndgame() {
@@ -31,8 +37,12 @@ export default function AssemblyEndgame() {
     const wrongGuessCount = guessedLetters.filter(
         letter => !currentWord.includes(letter)
             ).length
+    const isGameWon = currentWord.split("").every(
+        letter => guessedLetters.includes(letter))
+    const isGameLost = wrongGuessCount >= languages.length - 1
+    const isGameOver = isGameWon || isGameLost
     
-    console.log("Wrong guesses:", wrongGuessCount)
+    
 
     // Static values:
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -55,7 +65,6 @@ export default function AssemblyEndgame() {
         return (
         <span
             key={lang.name} 
-            // className={`chip ${isLanguageLost ? "lost" : ""}`}
             className={className}
             style={styles}
         >
@@ -90,7 +99,10 @@ export default function AssemblyEndgame() {
         )
         })
 
-
+    const gameStatusClass = clsx("game-status", {
+        won: isGameWon,
+        lost: isGameLost
+    })
     
     return (
         <main>
@@ -100,9 +112,23 @@ export default function AssemblyEndgame() {
                     programming world safe from Assembly!!
                 </p>
             </header>
-            <section className="game-status">
-                <h2>You win!</h2>
-                <p>Well done! 🍕</p>
+           <section className={gameStatusClass}>
+                {isGameOver ? (
+                    isGameWon ? (
+                    <>
+                        <h2>You win!</h2>
+                        <p>Well done! 🍕</p>
+                    </>
+                ) : (
+                    <>
+                        <h2>Game over!</h2>
+                        <p>You lose! Better start learning Assembly! 😭</p>
+                    </>
+                )   
+                ) : (
+                    null
+                    )  
+                }
             </section>
             <section className="language-chips">
                 {languageElements}
@@ -113,7 +139,7 @@ export default function AssemblyEndgame() {
              <section className="keyboard">
                 {keyboardElements}
             </section>
-            <button className="new-game">New Game</button>
+           {isGameOver && <button className="new-game">New Game</button>}
         </main>
     )
 }
