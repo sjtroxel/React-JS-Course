@@ -4,26 +4,38 @@ import { languages } from "./languages"
 
 
 /**
- * Goal: Allow the user to start guessing the letters
+ * Goal: Add in the incorrect guesses mechanism to the game
  * 
- * Challenge: Update the keyboard when a letter is right
- * or wrong.
+ * Challenge: Derive a variable (`wrongGuessCount`) for the 
+ * number of incorrect guesses by using the other state 
+ * values we're already holding in the component.
+ *      - console.log the wrongGuessCount for now
  * 
- * Bonus: use the `clsx` package to easily add conditional 
- * classNames to the keys of the keyboard. Check the docs 
- * to learn how to use it 📖
+ * Challenge: When mapping over the languages, determine how
+ * many of them have been "lost" and add the "lost" class if
+ * so.
  * 
- * Challenge: Only display the correctly-guessed letters
- * in the word.
+ * Hint: use the wrongGuessCount combined with the index of
+ * the item in the array while inside the languages.map code.
  */
 
 
-
 export default function AssemblyEndgame() {
+
+    // State values:
     const [currentWord, setCurrentWord] = React.useState("react")
     console.log(setCurrentWord)
     const [guessedLetters, setGuessedLetters] = React.useState([])
-    console.log(guessedLetters)
+
+    // Derived values:
+    const wrongGuessCount = guessedLetters.filter(
+        letter => !currentWord.includes(letter)
+            ).length
+    
+    console.log("Wrong guesses:", wrongGuessCount)
+
+    // Static values:
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
     function addGuessedLetter(letter) {
         setGuessedLetters(prevLetters => 
@@ -31,15 +43,22 @@ export default function AssemblyEndgame() {
         )
     }
 
-    const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
-    const languageElements = languages.map(lang => {
+
+    const languageElements = languages.map((lang, index) => {
+        const isLanguageLost = index < wrongGuessCount
         const styles = {
             backgroundColor: lang.backgroundColor,
             color: lang.color
         }
+        const className = clsx("chip", isLanguageLost && "lost") 
         return (
-        <span key={lang.name} className="chip" style={styles}>
+        <span
+            key={lang.name} 
+            // className={`chip ${isLanguageLost ? "lost" : ""}`}
+            className={className}
+            style={styles}
+        >
             {lang.name}
         </span>
     )})
@@ -70,6 +89,8 @@ export default function AssemblyEndgame() {
             </button>
         )
         })
+
+
     
     return (
         <main>
